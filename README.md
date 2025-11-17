@@ -253,7 +253,7 @@ Bu nedenle laptop fiyat tahmini probleminde Random Forest doğru bir seçimdir.
 * Hataların makul seviyede olduğunu,
 * Özellikle premium modellerde daha doğru tahminler verdiğini
 
-**göstermektedir.**
+
 
 
 
