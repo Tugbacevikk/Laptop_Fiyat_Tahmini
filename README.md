@@ -255,12 +255,5 @@ Bu nedenle laptop fiyat tahmini probleminde Random Forest doğru bir seçimdir.
 
 **göstermektedir.**
 
----
 
 
-
-✔ Veri setindeki tüm kolonlar doğru şekilde işlenmiş
-✔ Makine öğrenmesi pipeline’ı başarılı şekilde kurulmuş
-✔ Random Forest fiyat tahmini için en uygun model olarak belirlenmiştir
-
-Sonuç olarak proje, **dizüstü bilgisayar fiyatlarını yüksek doğrulukla tahmin eden kapsamlı bir ML uygulamasıdır.**
