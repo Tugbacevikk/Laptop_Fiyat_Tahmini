@@ -171,24 +171,24 @@ Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmışt�
 Random Forest modeline göre fiyatı belirleyen en önemli değişkenler aşağıda sıralanmıştır. RAM ve Ekran Kalitesi (PPI), fiyat üzerindeki en belirleyici faktörlerdir.
 
 Sıra	Özellik	Önem Düzeyi	Açıklama
-1️⃣	Ram_GB	██████████ (Yüksek)	Bellek kapasitesi arttıkça fiyat belirgin şekilde artmaktadır.
-2️⃣	PPI	████████░░	Piksel yoğunluğu (Ekran netliği/kalitesi).
-3️⃣	SSD_GB	██████░░░░	Hızlı depolama birimi (SSD) kapasitesi.
-4️⃣	Cpu_Brand	████░░░░░░	İşlemci gücü (Özellikle Intel i7 ve üstü).
-5️⃣	Weight_kg	██░░░░░░░░	Hafiflik (Ultrabook) veya performans ağırlığı (Gaming).
+1️	Ram_GB	 (Yüksek)	Bellek kapasitesi arttıkça fiyat belirgin şekilde artmaktadır.
+2️	PPI		Piksel yoğunluğu (Ekran netliği/kalitesi).
+3️	SSD_GB		Hızlı depolama birimi (SSD) kapasitesi.
+4️	Cpu_Brand		İşlemci gücü (Özellikle Intel i7 ve üstü).
+5️	Weight_kg	Hafiflik (Ultrabook) veya performans ağırlığı (Gaming).
 
 
 
 2. Korelasyon Analizi (Correlation)
 Değişkenlerin Price_euros (Fiyat) ile olan ilişkisi incelendiğinde:
 
-📈 Güçlü Pozitif İlişki:
+ Güçlü Pozitif İlişki:
 
 RAM & SSD: Kapasite arttıkça fiyat doğru orantılı olarak artıyor.
 
 Çözünürlük (PPI): Yüksek çözünürlüklü ekranlar (4K, Retina) daha pahalı modellerde bulunuyor.
 
-📉 Zayıf/Negatif İlişki:
+ Zayıf/Negatif İlişki:
 
 HDD: Eski teknoloji HDD disklerin boyutu artsa bile fiyata etkisi SSD kadar yüksek değildir.
 
