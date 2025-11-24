@@ -1,27 +1,21 @@
 
 
-#  Laptop Price Prediction (Makine Öğrenmesi ile Laptop Fiyat Tahmini)
+# Laptop Price Prediction (Makine Öğrenmesi ile Laptop Fiyat Tahmini)
 
-Bu proje, **laptop donanım özelliklerine göre fiyat tahmini yapan** bir makine öğrenmesi çalışmasıdır. Veri seti Kaggle platformundan alınmış olup tüm sütunlar işlenmiş, özellik mühendisliği uygulanmış ve Random Forest Regresyon modeli ile tahminleme yapılmıştır.
-
----
-
-##  Proje İçeriği
-
-Bu proje aşağıdaki adımları içerir:
-
-* Veri setinin yüklenmesi
-* Veri temizleme işlemleri
-* Özellik mühendisliği
-* Sayısallaştırma (One-Hot Encoding)
-* Eksik değerlerin işlenmesi
-* Model eğitimi (Random Forest Regressor)
-* Sonuçların değerlendirilmesi (R², MAE, RMSE)
-* Önemli özelliklerin çıkarılması
-* Grafiksel gösterimler
+Bu proje, **laptop donanım özelliklerine göre fiyat tahmini yapan bir makine öğrenmesi çalışmasıdır**.  
+Veri seti Kaggle platformundan alınmış, tüm sütunlar işlenmiş, özellik mühendisliği uygulanmış ve **Random Forest Regressor** modeli ile tahmin yapılmıştır.  
 
 ---
 
+## Proje Hedefi
+
+- Kullanıcıların laptop fiyatlarını tahmin edebilmek.  
+- Donanım özelliklerinden (RAM, SSD, CPU, GPU, ekran çözünürlüğü, işletim sistemi vb.) fiyatı öngörmek.  
+- Makine öğrenmesi teknikleri ile en doğru tahmin modelini seçmek.  
+
+---
+
+## Veri Seti
 #  Veri Seti Yapısı
 
 Veri seti toplam **1303 satır ve 13 sütundan** oluşmaktadır.
@@ -59,139 +53,93 @@ laptop_ID  Company Product        TypeName  Inches ScreenResolution             
 
 ---
 
-#  Veri Temizleme & Dönüştürme İşlemleri
-
-Kodun tam uyumlu şekilde uyguladığı işlemler:
-
-###  RAM → sayısal dönüşüm
-
-`8GB` → **8**
-
-### Weight → sayısal dönüşüm
-
-`1.37kg` → **1.37**
-
-###  ScreenResolution’dan çıkarılan özellikler
-
-* **Touchscreen** (0–1)
-* **IPS_Panel** (0–1)
-* **PPI (Pixels Per Inch)** → çözünürlük + ekran boyutundan hesaplandı
-
-###  Memory sütununun tamamen ayrıştırılması
-
-Kodun ürettiği:
-
-* **SSD_GB**
-* **HDD_GB**
-
-Örnek:
-
-* `256GB SSD` → SSD=256, HDD=0
-* `1TB HDD + 128GB SSD` → SSD=128, HDD=1024
-
-### CPU, GPU ve OS basitleştirme
-
-Kodun yaptığı gibi:
-
-* Cpu_Brand → “Intel”, “AMD”…
-* Gpu_Brand → “Intel”, “Nvidia”…
-* OpSys_Simplified → Windows / Mac / Linux / Other
-
-###  Kategorik değişkenler → One-Hot Encoding
-
-Aşağıdaki sütunlar otomatik olarak OHE yapıldı:
-
-* Company
-* TypeName
-* Cpu_Brand
-* Gpu_Brand
-* OpSys_Simplified
-
-###  Tüm sütunlar sayısal hale getirildi
-
-Kodda: `df[col] = pd.to_numeric(..., errors='coerce')`
-
-###  Eksik değerler dolduruldu
-
-`df.fillna(0, inplace=True)`
 
 ---
 
-# Model Eğitimi
+## Veri Temizleme ve Özellik Mühendisliği
 
-Model olarak **RandomForestRegressor** kullanılmıştır.
+1. **Sayısal Dönüşümler**  
+   - `Ram` ve `Weight` sütunları sayısal hale getirildi.  
+   - `Memory` ayrıştırılarak SSD ve HDD kapasiteleri GB cinsinden çıkarıldı.  
 
-### Model Parametreleri
+2. **Ekran Çözünürlüğünden Özellikler**  
+   - Touchscreen ve IPS Panel sütunları ikili (0–1) olarak eklendi.  
+   - PPI (Pixels Per Inch) hesaplandı.  
 
-```python
-model = RandomForestRegressor(
-    n_estimators=100,
-    random_state=42,
-    n_jobs=-1,
-    max_depth=10,
-    min_samples_leaf=1
-)
-```
+3. **CPU, GPU ve OS Basitleştirme**  
+   - İşlemci ve GPU markaları ayrıştırıldı (`Intel`, `AMD`, `Nvidia` vb.).  
+   - İşletim sistemi basitleştirildi (`Windows`, `Mac`, `Linux`, `Other`).  
 
-### Veri Bölme
+4. **Kategorik Verilerin Sayısallaştırılması**  
+   - `Company`, `TypeName`, `Cpu_Brand`, `Gpu_Brand`, `OpSys_Simplified` → One-Hot Encoding  
 
-```
-train: %80
-test : %20
-```
+5. **Eksik Değerlerin Doldurulması**  
+   - Tüm NaN değerler 0 ile dolduruldu.  
 
-### Fiyat Dönüşümü (Log-Transform)
-
-Model fiyatların logaritmasını öğrendi:
-
-* log_Price = ln(Price_euros)
-* Tahmin sonrası exp() ile geri dönüşüm yapıldı
+6. **Hedef Değişkenin Log Dönüşümü**  
+   - Fiyatların logaritması alındı (`log_Price`) → aşırı değerlerin etkisi azaltıldı.  
 
 ---
 
-#  Model Performansı
+## Modelleme
 
-Kodun hesapladığı metrikler:
+### Kullanılan Modeller
 
-* **R² (Doğruluk):** `model skoruna göre değişir`
-* **MAE:** Ortalama mutlak hata (Euro cinsinden)
-* **RMSE:** Hata karekökü (Euro)
+1. **Random Forest Regressor (Seçilen Model)**  
+   - Ensemble (çok ağaçlı) model  
+   - Karmaşık veri yapısını iyi öğrenir  
+   - Kategorik + sayısal verilerle uyumlu  
+   - Aykırı değerlerden etkilenmez  
+   - Overfitting’i azaltmak için çoklu ağaç kullanır  
 
-### Örnek çıktı (senin kod formatında)
+2. **Polynomial Regression (Derece 2)**  
+   - Fiyat ile özellikler arasındaki **non-lineer ilişkileri** modellemeye çalışır  
+   - Random Forest’a kıyasla daha düşük R² ve yüksek hata değerleri  
 
-```
-==================================================
-RASTGELE ORMAN REGRESYON MODELİ SONUÇLARI
-==================================================
-R-Kare (R^2) Skoru: 0.XX
-Ortalama Mutlak Hata (MAE): XXX.xx Euro
-Ortalama Karesel Hatanın Karekökü (RMSE): XXX.xx Euro
-==================================================
-```
+3. **Diğer Modeller (Deneme Amaçlı)**  
+   - **Linear Regression**: Basit doğrusal model → karmaşık ve çok değişkenli veri için yetersiz  
+   - **Decision Tree Regressor**: Tek ağaç → aşırı öğrenmeye eğilimli  
 
----
-
-#  Model İçin En Önemli 10 Özellik
-
-Kodun çıkardığı şekilde gösterim:
-
-```python
-top_10_features = feature_importances.nlargest(10)
-```
-
-Grafik: Barh grafiği (matplotlib)
+**Sonuç:** Random Forest en iyi performansı verdi → seçildi.  
 
 ---
 
-#  Kullanılan Kütüphaneler
+## Model Performansı
 
-```
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-```
+| Model | R² Skoru | MAE (Euro) | RMSE (Euro) |
+|-------|----------|------------|-------------|
+| Random Forest Regressor | Yüksek | Düşük | Düşük |
+| Polynomial Regression | Orta | Orta | Orta |
+| Linear Regression | Düşük | Yüksek | Yüksek |
+| Decision Tree Regressor | Orta | Orta | Orta |
+
+- Log dönüşümü tersine çevrilerek fiyatlar **orijinal Euro ölçeğinde** karşılaştırıldı.  
+
+---
+
+## Özellik Önem Düzeyi
+
+- Random Forest modeli, fiyat tahmininde **en önemli 10 özelliği** belirledi:  
+  - PPI, Ram_GB, SSD_GB, Cpu_Brand, Company vb.  
+- Görselleştirme ile en önemli özellikler bar chart olarak gösterildi.  
+
+---
+
+## Kullanılan Kütüphaneler
+
+- **pandas, numpy** → veri işleme  
+- **scikit-learn** → makine öğrenmesi modelleri ve metrikler  
+- **matplotlib, seaborn** → görselleştirme  
+
+---
+
+## Sonuç
+
+- Random Forest modeli, laptop fiyatlarını tahmin etmek için en uygun yöntemdir.  
+- Özellikle premium laptop modellerinde tahmin doğruluğu yüksektir.  
+- Polinom ve lineer regresyon, karmaşık veri yapısı nedeniyle yeterli performansı veremedi.  
+- Model, ekran kalitesi, RAM, SSD kapasitesi ve CPU gücü gibi temel donanım özelliklerinden fiyat tahmininde güçlü sinyaller elde eder.  
+
 
 
 
@@ -212,9 +160,7 @@ Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmışt�
 * **Weight_kg** → Fiyat ile güçlü bir bağı yok
 * **HDD_GB** → HDD kapasitesinin fiyatla pozitif ilişkisi zayıf
 
-Bu korelasyon analizine göre model daha çok **ekran kalitesi, SSD miktarı, işlemci türü ve RAM** üzerinden fiyat tahmininde güçlü sinyaller elde eder.
 
----
 
 #  Kullanılan Modeller ve Karşılaştırma
 
