@@ -183,7 +183,9 @@ Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmışt�
 - Random Forest modeli, laptop fiyatlarını tahmin etmek için en uygun yöntemdir.  
 - Özellikle premium laptop modellerinde tahmin doğruluğu yüksektir.  
 - Polinom ve lineer regresyon, karmaşık veri yapısı nedeniyle yeterli performansı veremedi.  
-- Model, ekran kalitesi, RAM, SSD kapasitesi ve CPU gücü gibi temel donanım özelliklerinden fiyat tahmininde güçlü sinyaller elde eder.  
+- Model, ekran kalitesi, RAM, SSD kapasitesi ve CPU gücü gibi temel donanım özelliklerinden fiyat tahmininde güçlü sinyaller elde eder.
+- <img width="989" height="590" alt="indir" src="https://github.com/user-attachments/assets/4c4438f4-c015-4bdb-8cc5-74426e7c0682" />
+
 
 
 
