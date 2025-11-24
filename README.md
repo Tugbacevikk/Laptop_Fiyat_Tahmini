@@ -167,17 +167,32 @@ Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmışt�
 
 ### En yüksek pozitif korelasyona sahip değişkenler:
 
-* **PPI** → Ekran kalitesi arttıkça fiyat artar
-* **Ram_GB** → Daha fazla RAM, daha yüksek fiyat
-* **SSD_GB** → SSD kapasitesi yükseldikçe fiyat artar
-* **Cpu_Brand / İşlemci gücü** → Özellikle Intel i7 ve üzeri modeller fiyatı artırır
-* **Company (Marka)** → Apple, Asus Zenbook, Dell XPS gibi premium markalar daha yüksek fiyatlıdır
+Özellik Önem Düzeyleri (Feature Importance)
+Random Forest modeline göre fiyatı belirleyen en önemli değişkenler aşağıda sıralanmıştır. RAM ve Ekran Kalitesi (PPI), fiyat üzerindeki en belirleyici faktörlerdir.
 
-### Negatif veya zayıf korelasyonlu özellikler:
+Sıra	Özellik	Önem Düzeyi	Açıklama
+1️⃣	Ram_GB	██████████ (Yüksek)	Bellek kapasitesi arttıkça fiyat belirgin şekilde artmaktadır.
+2️⃣	PPI	████████░░	Piksel yoğunluğu (Ekran netliği/kalitesi).
+3️⃣	SSD_GB	██████░░░░	Hızlı depolama birimi (SSD) kapasitesi.
+4️⃣	Cpu_Brand	████░░░░░░	İşlemci gücü (Özellikle Intel i7 ve üstü).
+5️⃣	Weight_kg	██░░░░░░░░	Hafiflik (Ultrabook) veya performans ağırlığı (Gaming).
 
-* **Weight_kg** → Fiyat ile güçlü bir bağı yok
-* **HDD_GB** → HDD kapasitesinin fiyatla pozitif ilişkisi zayıf
 
+
+2. Korelasyon Analizi (Correlation)
+Değişkenlerin Price_euros (Fiyat) ile olan ilişkisi incelendiğinde:
+
+📈 Güçlü Pozitif İlişki:
+
+RAM & SSD: Kapasite arttıkça fiyat doğru orantılı olarak artıyor.
+
+Çözünürlük (PPI): Yüksek çözünürlüklü ekranlar (4K, Retina) daha pahalı modellerde bulunuyor.
+
+📉 Zayıf/Negatif İlişki:
+
+HDD: Eski teknoloji HDD disklerin boyutu artsa bile fiyata etkisi SSD kadar yüksek değildir.
+
+Ağırlık: Ağırlık ile fiyat arasında doğrudan net bir çizgi yoktur; hem ucuz ağır laptoplar hem de pahalı ağır (Gaming) laptoplar mevcuttur.
 ## Sonuç
 
 - Random Forest modeli, laptop fiyatlarını tahmin etmek için en uygun yöntemdir.  
