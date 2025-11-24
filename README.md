@@ -15,7 +15,7 @@ Veri seti Kaggle platformundan alınmış, tüm sütunlar işlenmiş, özellik m
 
 ---
 
-## Veri Seti
+
 #  Veri Seti Yapısı
 
 Veri seti toplam **1303 satır ve 13 sütundan** oluşmaktadır.
@@ -116,52 +116,6 @@ laptop_ID  Company Product        TypeName  Inches ScreenResolution             
 - Log dönüşümü tersine çevrilerek fiyatlar **orijinal Euro ölçeğinde** karşılaştırıldı.  
 
 ---
-
-## Özellik Önem Düzeyi
-
-- Random Forest modeli, fiyat tahmininde **en önemli 10 özelliği** belirledi:  
-  - PPI, Ram_GB, SSD_GB, Cpu_Brand, Company vb.  
-- Görselleştirme ile en önemli özellikler bar chart olarak gösterildi.  
-
----
-
-## Kullanılan Kütüphaneler
-
-- **pandas, numpy** → veri işleme  
-- **scikit-learn** → makine öğrenmesi modelleri ve metrikler  
-- **matplotlib, seaborn** → görselleştirme  
-
----
-
-## Sonuç
-
-- Random Forest modeli, laptop fiyatlarını tahmin etmek için en uygun yöntemdir.  
-- Özellikle premium laptop modellerinde tahmin doğruluğu yüksektir.  
-- Polinom ve lineer regresyon, karmaşık veri yapısı nedeniyle yeterli performansı veremedi.  
-- Model, ekran kalitesi, RAM, SSD kapasitesi ve CPU gücü gibi temel donanım özelliklerinden fiyat tahmininde güçlü sinyaller elde eder.  
-
-
-
-
-#  Kolonlar Arasındaki İlişkiler (Korelasyon Analizi)
-
-Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmıştır. Özellikle fiyatı etkileyen değişkenler üzerinde yoğunlaşılmıştır.
-
-### En yüksek pozitif korelasyona sahip değişkenler:
-
-* **PPI** → Ekran kalitesi arttıkça fiyat artar
-* **Ram_GB** → Daha fazla RAM, daha yüksek fiyat
-* **SSD_GB** → SSD kapasitesi yükseldikçe fiyat artar
-* **Cpu_Brand / İşlemci gücü** → Özellikle Intel i7 ve üzeri modeller fiyatı artırır
-* **Company (Marka)** → Apple, Asus Zenbook, Dell XPS gibi premium markalar daha yüksek fiyatlıdır
-
-### Negatif veya zayıf korelasyonlu özellikler:
-
-* **Weight_kg** → Fiyat ile güçlü bir bağı yok
-* **HDD_GB** → HDD kapasitesinin fiyatla pozitif ilişkisi zayıf
-
-
-
 #  Kullanılan Modeller ve Karşılaştırma
 
 Bu projede temel olarak **Random Forest Regressor** uygulanmıştır. Ancak model seçimi aşamasında farklı algoritmalar değerlendirilmiştir.
@@ -192,13 +146,44 @@ Bu nedenle laptop fiyat tahmini probleminde Random Forest doğru bir seçimdir.
 
 ---
 
-#  Sonuç (Final Model Değerlendirmesi)
+## Özellik Önem Düzeyi
 
+- Random Forest modeli, fiyat tahmininde **en önemli 10 özelliği** belirledi:  
+  - PPI, Ram_GB, SSD_GB, Cpu_Brand, Company vb.  
+- Görselleştirme ile en önemli özellikler bar chart olarak gösterildi.  
 
-* Gerçek fiyatlara oldukça yakın tahmin yaptığını,
-* Hataların makul seviyede olduğunu,
-* Özellikle premium modellerde daha doğru tahminler verdiğini
+---
 
+## Kullanılan Kütüphaneler
+
+- **pandas, numpy** → veri işleme  
+- **scikit-learn** → makine öğrenmesi modelleri ve metrikler  
+- **matplotlib, seaborn** → görselleştirme  
+
+---
+#  Kolonlar Arasındaki İlişkiler (Korelasyon Analizi)
+
+Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmıştır. Özellikle fiyatı etkileyen değişkenler üzerinde yoğunlaşılmıştır.
+
+### En yüksek pozitif korelasyona sahip değişkenler:
+
+* **PPI** → Ekran kalitesi arttıkça fiyat artar
+* **Ram_GB** → Daha fazla RAM, daha yüksek fiyat
+* **SSD_GB** → SSD kapasitesi yükseldikçe fiyat artar
+* **Cpu_Brand / İşlemci gücü** → Özellikle Intel i7 ve üzeri modeller fiyatı artırır
+* **Company (Marka)** → Apple, Asus Zenbook, Dell XPS gibi premium markalar daha yüksek fiyatlıdır
+
+### Negatif veya zayıf korelasyonlu özellikler:
+
+* **Weight_kg** → Fiyat ile güçlü bir bağı yok
+* **HDD_GB** → HDD kapasitesinin fiyatla pozitif ilişkisi zayıf
+
+## Sonuç
+
+- Random Forest modeli, laptop fiyatlarını tahmin etmek için en uygun yöntemdir.  
+- Özellikle premium laptop modellerinde tahmin doğruluğu yüksektir.  
+- Polinom ve lineer regresyon, karmaşık veri yapısı nedeniyle yeterli performansı veremedi.  
+- Model, ekran kalitesi, RAM, SSD kapasitesi ve CPU gücü gibi temel donanım özelliklerinden fiyat tahmininde güçlü sinyaller elde eder.  
 
 
 
