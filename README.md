@@ -1,6 +1,6 @@
 
 
-# Laptop Price Prediction (Makine Öğrenmesi ile Laptop Fiyat Tahmini)
+# Makine Öğrenmesi ile Laptop Fiyat Tahmini
 
 Bu projem, **laptop donanım özelliklerine göre fiyat tahmini yapan bir makine öğrenmesi dersi çalışmasıdır**.  
 Veri seti Kaggle platformundan alınmış, tüm sütunlar işlenmiş, özellik mühendisliği uygulanmış ve **Random Forest Regressor** modeli ile tahmin yapılmıştır.  
