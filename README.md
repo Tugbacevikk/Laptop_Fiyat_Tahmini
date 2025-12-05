@@ -2,7 +2,7 @@
 
 # Laptop Price Prediction (Makine Öğrenmesi ile Laptop Fiyat Tahmini)
 
-Bu proje, **laptop donanım özelliklerine göre fiyat tahmini yapan bir makine öğrenmesi çalışmasıdır**.  
+Bu projem, **laptop donanım özelliklerine göre fiyat tahmini yapan bir makine öğrenmesi dersi çalışmasıdır**.  
 Veri seti Kaggle platformundan alınmış, tüm sütunlar işlenmiş, özellik mühendisliği uygulanmış ve **Random Forest Regressor** modeli ile tahmin yapılmıştır.  
 
 ---
@@ -10,8 +10,8 @@ Veri seti Kaggle platformundan alınmış, tüm sütunlar işlenmiş, özellik m
 ## Proje Hedefi
 
 - Kullanıcıların laptop fiyatlarını tahmin edebilmek.  
-- Donanım özelliklerinden (RAM, SSD, CPU, GPU, ekran çözünürlüğü, işletim sistemi vb.) fiyatı öngörmek.  
-- Makine öğrenmesi teknikleri ile en doğru tahmin modelini seçmek.  
+- Donanım özelliklerinden fiyat öngörüsü yapabilmek.  
+- Makine öğrenmesi teknikleri ile en doğru tahmin modelini seçebilmek amaçlarım arasındadır.  
 
 ---
 
@@ -23,15 +23,15 @@ Aşağıda veri setindeki tüm sütunların açıklamaları bulunmaktadır:
 
 | Sütun                | Açıklama                                        |
 | -------------------- | ----------------------------------------------- |
-| **laptop_ID**        | Laptop numarası (index gibi benzersiz ID)       |
-| **Company**          | Markası (Apple, HP, Acer, Asus…)                |
+| **laptop_ID**        | Laptop numarası                                 |
+| **Company**          | Markası                                         |
 | **Product**          | Ürün adı                                        |
-| **TypeName**         | Laptop türü (Ultrabook, Notebook, Workstation…) |
+| **TypeName**         | Laptop türü                                     |
 | **Inches**           | Ekran boyutu (inç cinsinden)                    |
 | **ScreenResolution** | Ekran çözünürlüğü                               |
 | **Cpu**              | İşlemci modeli                                  |
-| **Ram**              | RAM kapasitesi (örn. 8GB)                       |
-| **Memory**           | Depolama yapısı (SSD/HDD/Flash)                 |
+| **Ram**              | RAM kapasitesi                                  |
+| **Memory**           | Depolama yapısı                                 |
 | **Gpu**              | Grafik kartı modeli                             |
 | **OpSys**            | İşletim sistemi                                 |
 | **Weight**           | Ağırlık (kg)                                    |
@@ -59,25 +59,22 @@ laptop_ID  Company Product        TypeName  Inches ScreenResolution             
 ## Veri Temizleme ve Özellik Mühendisliği
 
 1. **Sayısal Dönüşümler**  
-   - `Ram` ve `Weight` sütunları sayısal hale getirildi.  
-   - `Memory` ayrıştırılarak SSD ve HDD kapasiteleri GB cinsinden çıkarıldı.  
+   - `Ram` ve `Weight` sütunları sayısallaştırdım  
+   - `Memory`sütünü   SSD ve HDD kapasiteleri olarak ayırarak GB cinsinden yazdırdım.  
 
-2. **Ekran Çözünürlüğünden Özellikler**  
-   - Touchscreen ve IPS Panel sütunları ikili (0–1) olarak eklendi.  
-   - PPI (Pixels Per Inch) hesaplandı.  
+ 
+2. **CPU, GPU ve OS Basitleştirme**  
+   - İşlemci ve GPU markaları ayrıştırdım (`Intel`, `AMD`, `Nvidia` vb.).  
+   - İşletim sistemi basitleştirdim (`Windows`, `Mac`, `Linux`, `Other`).  
 
-3. **CPU, GPU ve OS Basitleştirme**  
-   - İşlemci ve GPU markaları ayrıştırıldı (`Intel`, `AMD`, `Nvidia` vb.).  
-   - İşletim sistemi basitleştirildi (`Windows`, `Mac`, `Linux`, `Other`).  
-
-4. **Kategorik Verilerin Sayısallaştırılması**  
+3. **Kategorik Verilerin Sayısallaştırılması**  
    - `Company`, `TypeName`, `Cpu_Brand`, `Gpu_Brand`, `OpSys_Simplified` → One-Hot Encoding  
 
-5. **Eksik Değerlerin Doldurulması**  
-   - Tüm NaN değerler 0 ile dolduruldu.  
+4. **Eksik Değerlerin Doldurulması**  
+   - Tüm NaN değerler 0 ile doldurdum.  
 
-6. **Hedef Değişkenin Log Dönüşümü**  
-   - Fiyatların logaritması alındı (`log_Price`) → aşırı değerlerin etkisi azaltıldı.  
+5. **Hedef Değişkenin Log Dönüşümü**  
+   - Fiyatların logaritması alındı (`log_Price`) → aşırı değerlerin etkisi azalttım.  
 
 ---
 
@@ -86,21 +83,21 @@ laptop_ID  Company Product        TypeName  Inches ScreenResolution             
 ### Kullanılan Modeller
 
 1. **Random Forest Regressor (Seçilen Model)**  
-   - Ensemble (çok ağaçlı) model  
-   - Karmaşık veri yapısını iyi öğrenir  
-   - Kategorik + sayısal verilerle uyumlu  
-   - Aykırı değerlerden etkilenmez  
-   - Overfitting’i azaltmak için çoklu ağaç kullanır  
+   - Ensemble (çok ağaçlı) bir  modeldir 
+   - Karmaşık veri yapısında daah verimlidir
+   - Kategorik + sayısal verilerle uyumluludur  
+   - Aykırı değerlerden kolay  etkilenmez  
+   - Overfitting’i azaltmak için çoklu ağaç yapısı kullanır  
 
 2. **Polynomial Regression (Derece 2)**  
    - Fiyat ile özellikler arasındaki **non-lineer ilişkileri** modellemeye çalışır  
-   - Random Forest’a kıyasla daha düşük R² ve yüksek hata değerleri  
+   - Random Forest’a kıyasla daha düşük R² ve yüksek hata değerleri  ürettiği için secilmedim
 
 3. **Diğer Modeller (Deneme Amaçlı)**  
-   - **Linear Regression**: Basit doğrusal model → karmaşık ve çok değişkenli veri için yetersiz  
-   - **Decision Tree Regressor**: Tek ağaç → aşırı öğrenmeye eğilimli  
+   - **Linear Regression**: Basit doğrusal model → karmaşık ve çok değişkenli veri için yetersiz kaldı
+    
 
-**Sonuç:** Random Forest en iyi performansı verdi → seçildi.  
+**Sonuç:** Random Forest en iyi performansı verdiği için radndom forest algoritmasını seçtim  
 
 ---
 
@@ -111,30 +108,13 @@ laptop_ID  Company Product        TypeName  Inches ScreenResolution             
 | Random Forest Regressor | Yüksek | Düşük | Düşük |
 | Polynomial Regression | Orta | Orta | Orta |
 | Linear Regression | Düşük | Yüksek | Yüksek |
-| Decision Tree Regressor | Orta | Orta | Orta |
+
 
 - Log dönüşümü tersine çevrilerek fiyatlar **orijinal Euro ölçeğinde** karşılaştırıldı.  
 
 ---
-#  Kullanılan Modeller ve Karşılaştırma
 
-Bu projede temel olarak **Random Forest Regressor** uygulanmıştır. Ancak model seçimi aşamasında farklı algoritmalar değerlendirilmiştir.
-
-Aşağıdaki modeller test edilmiştir:
-
-| Model                       | Açıklama                          | Performans | Not                                           |
-| --------------------------- | --------------------------------- | ---------- | --------------------------------------------- |
-| **Linear Regression**       | Basit doğrusal regresyon          | Düşük      | Karmaşık veri için yetersiz kaldı             |
-| **Decision Tree Regressor** | Tek karar ağacı                   | Orta       | Ağaçlar aşırı öğrenmeye yatkın                |
-| **Random Forest Regressor** | Birden çok ağacın ensemble modeli | **En iyi** | En yüksek R² ve en düşük hata değerini üretti |
-
----
-
-# En İyi Çıkan Model: Random Forest Regressor
-
-**Random Forest**, veri setin için en uygun model olarak seçilmiştir.
-
-###  Neden Uygun?
+###  Neden Random Forest Algoritması  Uygun?
 
 * Karmaşık ve çok değişkenli veri yapısını iyi öğrenir
 * Kategorik + sayısal değişkenleri birlikte rahat işleyebilir
@@ -159,29 +139,6 @@ Bu nedenle laptop fiyat tahmini probleminde Random Forest doğru bir seçimdir.
 - **pandas, numpy** → veri işleme  
 - **scikit-learn** → makine öğrenmesi modelleri ve metrikler  
 - **matplotlib, seaborn** → görselleştirme  
-
----
-#  Kolonlar Arasındaki İlişkiler (Korelasyon Analizi)
-
-Veri setindeki sayısal değişkenler arasında korelasyon analizi yapılmıştır. Özellikle fiyatı etkileyen değişkenler üzerinde yoğunlaşılmıştır.
-
-### En yüksek pozitif korelasyona sahip değişkenler:
-
-Özellik Önem Düzeyleri (Feature Importance)
-Random Forest modeline göre fiyatı belirleyen en önemli değişkenler aşağıda sıralanmıştır. RAM ve Ekran Kalitesi (PPI), fiyat üzerindeki en belirleyici faktörlerdir.
-
-Sıra	Özellik	Önem Düzeyi	Açıklama
-
--	Ram_GB	 (Yüksek)	Bellek kapasitesi arttıkça fiyat belirgin şekilde artmaktadır.
-
--	PPI		Piksel yoğunluğu (Ekran netliği/kalitesi).
-
--.	SSD_GB		Hızlı depolama birimi (SSD) kapasitesi.
-
--	Cpu_Brand		İşlemci gücü (Özellikle Intel i7 ve üstü).
-
--.	Weight_kg	Hafiflik (Ultrabook) veya performans ağırlığı (Gaming).
-
 
 
 # Korelasyon Analizi (Correlation)
