@@ -142,13 +142,13 @@ Bu nedenle laptop fiyat tahmini probleminde Random Forest doğru bir seçimdir.
 
 
 # Korelasyon Analizi (Correlation)
-Değişkenlerin Price_euros (Fiyat) ile olan ilişkisi incelendiğinde:
+Değişkenlerin fiyatını  incelendiğimde:
 
  Güçlü Pozitif İlişki:
 
 RAM & SSD: Kapasite arttıkça fiyat doğru orantılı olarak artıyor.
 
-Çözünürlük (PPI): Yüksek çözünürlüklü ekranlar (4K, Retina) daha pahalı modellerde bulunuyor.
+Çözünürlük (PPI): Yüksek çözünürlüklü ekranlar daha pahalı modellerde bulunuyor.
 
  Zayıf/Negatif İlişki:
 
